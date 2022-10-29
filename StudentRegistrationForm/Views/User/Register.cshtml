@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+    <link rel="stylesheet" href="~/Content/css/Register.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    @*https://codeseven.github.io/toastr/*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    @*<script type="text/javascript" src="~/Scripts/loginScript.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/Scripts/RegisterIndex.js"></script>
+
+</head>
+<body>
+    <div class="split_screen">
+        <div class="left">
+            <section class="copy">
+                <p id="leftTitle">Skills Lab University</p>
+                <p id="leftQuote">#Make work life better</p>
+            </section>
+        </div>
+        <dic class="right">
+            <form>
+                <section class="copy">
+                    <img src="~/Content/CeridianLogo.png" width="350" height="280" alt="Ceridian logp">
+                    <p id="registerTitle">Sign Up<p>
+                        <div class="login_container">
+                            <p>Already have an account?</p>
+                            <a href="#"><strong>Log In</strong></a>
+                        </div>
+                </section>
+                <div class="input_container_email">
+                    <label id="textTitle" for="fname">Email Address</label>
+                    <input class="text" id="emailAddress" name="fname" type="email">
+                </div>
+                <p id="message1"></p>
+                <div class="input_container_password">
+                    <label id="textTitle" for="email">Password</label>
+                    <input class="text" id="password1" name="email" type="password">
+                </div>
+                <p id="message2"></p>
+                <div class="input_container_password">
+                    <label id="textTitle" for="password">Confirm Password</label>
+                    <input class="text" id="password2" name="password" type="password">
+                </div>
+                <p id="message3"></p>
+                <button onclick="Validation()" class="signup_btn" type="submit">Sign Up</button>
+                <div class="pop_up">
+                    <span role="alert" id="errorPane" aria-hidden="true" style="color:red"></span>
+                </div>
+            </form>
+        </dic>
+    </div>
+
+
+
+</body>
+
+</html>
+ 
