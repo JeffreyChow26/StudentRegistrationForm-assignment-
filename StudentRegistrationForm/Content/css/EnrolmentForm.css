@@ -1,0 +1,249 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+#header {
+    background-color: transparent;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 5px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+    #header * {
+        display: inline;
+    }
+
+header li {
+    margin: 20px;
+}
+
+#header li #button {
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    height: 30px;
+    font-size: 20px;
+}
+
+#header li #button:hover {
+    color: blue
+}  
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #71b7e6, #191970);
+}
+
+
+.EnrolFormContainer {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+
+.EnrolFormContainer .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.EnrolFormContainer .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 550px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #191970);
+}
+
+.content #EnrolForm .user_details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+#EnrolForm .user_details .input_box {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+#EnrolForm .user_details .input_box_two {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#buttonSelection {
+    margin-bottom: 15px;
+    height: 45px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+    #buttonSelection #subjectButton {
+        height: 45px;
+        width: 50px;
+        border-radius: 5px;
+        padding: 0px;
+        color: white;
+        background: midnightblue;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    #buttonSelection #gradeButton {
+        height: 45px;
+        width: 50px;
+        border-radius: 5px;
+        padding: 0px;
+        color: white;
+        background: midnightblue;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    #buttonSelection #subjectButton:hover {
+        background: #71b7e6;
+    }
+
+    #buttonSelection #gradeButton:hover {
+        background: #71b7e6;
+    }
+
+.user_details .input_box .user_input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.user_details .input_box_two .user_input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.EnrolFormContainer .content #EnrolForm .user_details #resultSelection {
+    width: 100%;
+}
+
+    .EnrolFormContainer .content #EnrolForm .user_details #resultSelection #subjects1,
+    .EnrolFormContainer .content #EnrolForm .user_details #resultSelection #subjects2,
+    .EnrolFormContainer .content #EnrolForm .user_details #resultSelection #subjects3 {
+        width: 75%;
+        height: 45px;
+        border-color: #0000ff;
+        color: #191970;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        margin-right: 5px;
+    }
+
+    .EnrolFormContainer .content #EnrolForm .user_details #resultSelection #grades1,
+    .EnrolFormContainer .content #EnrolForm .user_details #resultSelection #grades2,
+    .EnrolFormContainer .content #EnrolForm .user_details #resultSelection #grades3 {
+        width: 24%;
+        height: 45px;
+        border-color: #0000ff;
+        color: #191970;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+
+.user_details .input_box #user_input:focus,
+.user_details .input_box #user_input:valid {
+    border-color: #0000ff;
+    color: #191970;
+}
+
+.user_details .input_box_two #user_input:focus,
+.user_details .input_box_two #user_input:valid {
+    border-color: #0000ff;
+    color: #191970;
+}
+
+
+#EnrolForm .button_container {
+    height: 45px;
+    margin: 35px 0
+}
+
+    #EnrolForm .button_container #button {
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #71b7e6, #191970 );
+    }
+
+        #EnrolForm .button_container #button:hover {
+            /* transform: scale(0.99); */
+            background: linear-gradient(-135deg, #71b7e6, #191970);
+        }
+
+
+@media(max-width: 584px) {
+    .EnrolFormContainer {
+        max-width: 100%;
+    }
+
+        .EnrolFormContainer .title::before {
+            width: 400px;
+        }
+
+    #EnrolForm .user_details .input_box {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .content #EnrolForm .user_details {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .user_details::-webkit-scrollbar {
+        width: 5px;
+    }
+}
+
+@media(max-width: 459px) {
+    .EnrolFormContainer .content .category {
+        flex-direction: column;
+    }
+}

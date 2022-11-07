@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Screen</title>
+    <link rel="stylesheet" href="~/Content/css/AdminSide.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    @*https://codeseven.github.io/toastr/*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <header id="header">
+            <nav>
+                <ul>
+                    <li>
+                        <input id="button" type="button" onClick="Logout()" value="Logout">
+                    </li>
+                    <li id="tableButton">
+                        <input id="button2" type="button" onClick="TableToCsv()" value="Dowload CSV">
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <table id="studentInfoTable">
+        <tr>
+            <th>Student Id</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Email Address</th>
+            <th>Date of birth</th>
+            <th>Guardian Name</th>
+            <th>National Identity Number</th>
+            <th>UserId</th>
+            <th>Subject Taken</th>
+            <th>Total Mark</th>
+            <th>Status</th>
+        </tr>
+    </table>
+    <script type="text/javascript" src="~/Scripts/Scripts/AdminSide.js"></script>
+    <script>
+        function Logout() {
+            localStorage.clear();
+            CacheStorage.clear;
+            sessionStorage.clear;
+            LogoutController().then((result) => {
+                window.location = result.url;
+            })
+        }
+        function LogoutController() {
+            console.log("logout");
+            return fetch("/User/Logout", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => { return response.json(); })
+                .catch((error) => console.log(error))
+        }
+    </script>
+</body>
+</html>
+
+
+

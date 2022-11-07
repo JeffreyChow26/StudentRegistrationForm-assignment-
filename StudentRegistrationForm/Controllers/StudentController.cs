@@ -1,36 +1,30 @@
-﻿using BLL.ServiceLayer;
-using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
+﻿using ServiceLayer.ServiceLayer;
+using Repository.Models;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace StudentRegistrationForm.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly StudentService _studentService = new StudentService(new DAL.Repository.StudentRepository());
+        private readonly StudentService _studentService = new StudentService(new Repository.Repository.StudentRepository());
         // GET: Student
-        public ActionResult RegisterForm()
+        public ActionResult EnrolmentForm()
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
             return View();
         }
-
         [HttpPost]
-        public JsonResult RegisterForm(Student student)
+        public JsonResult EnrolmentForm(Student student, SubjectResult results)
         {
-            bool submit = _studentService.VerifyDuplicateInfo(student.NationalIdentityNumber, student.EmailAddress, student.PhoneNumber);
-
-            if(submit == true){
-                Debug.WriteLine("no duplicate info");
-            }
-            else{
-                Debug.WriteLine("duplicate info found");
-            }
-
-            return Json(new { result = true});
+            int sessionUserId = (int)Session["UserId"];
+            List<ValidationResult> result = _studentService.InsertStudentInfo(student, sessionUserId);
+            return Json(new{ data = result,hasErrors = result.Any()},JsonRequestBehavior.AllowGet);
         }
     }
 }

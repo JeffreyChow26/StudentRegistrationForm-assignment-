@@ -1,5 +1,5 @@
-﻿using DAL.Models;
-using BLL.ServiceLayer;
+﻿using Repository.Models;
+using ServiceLayer.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,7 @@ namespace StudentRegistrationForm.Controllers
 {
     public class SubjectController : Controller
     {
-        private readonly SubjectService _subjectService = new SubjectService(new DAL.Repository.SubjectRepository());
-        // GET: Subject
+        private readonly SubjectService _subjectService = new SubjectService(new Repository.Repository.SubjectRepository());
         public ActionResult Index()
         {
             return View();

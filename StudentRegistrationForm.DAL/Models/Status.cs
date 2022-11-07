@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Repository.Models
 {
-    public enum ResultPoint
+    public enum Status
     {
-        F = 0,
-        E = 2,
-        D = 4,
-        C = 6,
-        B = 8,
-        A = 10
+        rejected = -1,
+        pending = 0,
+        approved = 1,
     }
 }

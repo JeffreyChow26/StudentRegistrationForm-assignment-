@@ -1,13 +1,16 @@
-﻿using DAL.Repository;
-using DAL.Models;
+﻿using Repository.Repository;
+using Repository.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using ServiceLayer.Validation;
+using Repository.ViewModel;
 
-namespace BLL.ServiceLayer
+namespace ServiceLayer.ServiceLayer
 {
     public class StudentService
     {
@@ -16,18 +19,27 @@ namespace BLL.ServiceLayer
         {
             this._repository = iStudentRepository;
         }
-        public bool VerifyDuplicateInfo(string nid, string emailAddress, string phoneNumber)
+        public List<ValidationResult> InsertStudentInfo(Student student, int sessionUserId)
         {
-            List<Student> extingStudentLst = _repository.FindDuplicateInfo();
-            List<Student> inputInformationLst = new List<Student>();
-            Student student = new Student()
+            ValidateStudentInfo validateStudentInfo = new ValidateStudentInfo(_repository);
+            List<ValidationResult> errorList = validateStudentInfo.ValidateEnrolmentForm(student);
+            if(errorList.Count == 0)
             {
-                NationalIdentityNumber = nid,
-                EmailAddress = emailAddress,
-                PhoneNumber = phoneNumber
-            };
-            inputInformationLst.Add(student);
-            return extingStudentLst.Any(i => inputInformationLst.Contains(i));
+                int studentId = _repository.InsertStudentInfo(student, sessionUserId);
+                _repository.InsertStudentResult(student.Result,studentId);
+                return errorList;
+            }
+            return errorList; 
+        }
+        public List<StudentInfoViewModel> GetAllStudentInfo()
+        {
+            List<StudentInfoViewModel> studentEnrolmentInfoLst = _repository.GetAllStudentInfo();
+            return studentEnrolmentInfoLst;
+        }
+
+        public bool CheckEnrolment(int sessionUerId)
+        {
+            return _repository.CheckEnrolment(sessionUerId);
         }
     }
 }

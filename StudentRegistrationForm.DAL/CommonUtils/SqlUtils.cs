@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
-namespace DAL.CommonUtils
+namespace Repository.CommonUtils
 {
     public class SqlUtils
     {
-        public string connection = "Data Source=L-PW02X07C; Initial Catalog=StudentRegistrationForm; Integrated Security = True";
+        public string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         public SqlConnection sqlConnection;
 
         public SqlUtils()

@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistrationForm", "StudentRegistrationForm\StudentRegistrationForm.csproj", "{58BD9713-284A-497B-8B17-555FAB9E940D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "StudentRegistrationForm.DAL\DAL.csproj", "{3B18973D-C440-4F50-8ED4-194DA436C362}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "StudentRegistrationForm.DAL\Repository.csproj", "{3B18973D-C440-4F50-8ED4-194DA436C362}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "ServiceLayer\BLL.csproj", "{EBC571AF-7765-474A-B2F4-AA6B4509D9EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{EBC571AF-7765-474A-B2F4-AA6B4509D9EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

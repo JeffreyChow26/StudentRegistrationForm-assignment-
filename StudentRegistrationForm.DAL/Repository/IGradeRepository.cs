@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository.Repository
 {
-    public interface ISubjectRepository
+    public interface IGradeRepository
     {
-        List<Subject> GetAllSubject();
+        List<Grade> GetAllGrade();
     }
 }

@@ -4,31 +4,30 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository.Repository
 {
-    public class SubjectRepository : ISubjectRepository
+    public class GradeRepository : IGradeRepository
     {
-        public List<Subject> GetAllSubject()
+        public List<Grade> GetAllGrade()
         {
-            List<Subject> SubjectLst = new List<Subject>();
+            List<Grade> GradesLst = new List<Grade>();
             SqlUtils sqlUtils = new SqlUtils();
-            
-            SqlCommand sqlCommand = new SqlCommand(SqlDbCommand.SelectAllSubjectQuery, sqlUtils.sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(SqlDbCommand.SelectGradeQuery, sqlUtils.sqlConnection);
             SqlDataReader reader = sqlCommand.ExecuteReader();
-
             while (reader.Read())
             {
-                Subject subject = new Subject()
+                Grade grade = new Grade()
                 {
-                    Id = reader.GetInt32(0),
+                    Mark = reader.GetInt32(0),
                     Name = reader.GetString(1)
                 };
-                SubjectLst.Add(subject);
+                GradesLst.Add(grade);
             }
-
-            return SubjectLst;
+            return GradesLst;
         }
     }
+
 }

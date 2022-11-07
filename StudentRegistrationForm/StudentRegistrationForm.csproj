@@ -145,6 +145,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
@@ -160,10 +162,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CeridianLogo.png" />
+    <Content Include="Content\css\AdminSide.css" />
     <Content Include="Content\css\Login.css" />
     <Content Include="Content\css\Register.css" />
     <Content Include="Content\register.jpg" />
-    <Content Include="Content\css\StudentForm.css" />
+    <Content Include="Content\css\EnrolmentForm.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -181,6 +184,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Scripts\AdminSide.js" />
     <Content Include="Scripts\Scripts\LoginIndex.js" />
     <Content Include="Scripts\Scripts\RegisterIndex.js" />
     <Content Include="Scripts\Scripts\EnrolmentForm.js" />
@@ -200,10 +204,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Student\RegisterForm.cshtml" />
+    <Content Include="Views\Student\EnrolmentForm.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Grade\" />
+    <Folder Include="Views\SubjectResult\" />
     <Folder Include="Views\Subject\" />
   </ItemGroup>
   <ItemGroup>
@@ -220,13 +227,13 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceLayer\BLL.csproj">
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
       <Project>{ebc571af-7765-474a-b2f4-aa6b4509d9ee}</Project>
-      <Name>BLL</Name>
+      <Name>ServiceLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StudentRegistrationForm.DAL\DAL.csproj">
+    <ProjectReference Include="..\StudentRegistrationForm.DAL\Repository.csproj">
       <Project>{3B18973D-C440-4F50-8ED4-194DA436C362}</Project>
-      <Name>DAL</Name>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

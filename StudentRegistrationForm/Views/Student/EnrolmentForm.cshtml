@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enrolment Form</title>
+    <link rel="stylesheet" href="~/Content/css/EnrolmentForm.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    @*https://codeseven.github.io/toastr/*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <header id="header">
+            <nav>
+                <ul>
+                    <li>
+                        <input id="button" type="button" onClick="Logout()" value="Logout"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="EnrolFormContainer">
+        <div class="title">Enrolment Form - Be the future of tomorrow</div>
+        <div class="content">
+            <form id="EnrolForm">
+                <div class="user_details">
+                    <div class="input_box">
+                        <span class="details">Name</span>
+                        <input class="user_input" id="name" type="text" placeholder="Enter your name">
+                        <p id="message1"></p>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Surname</span>
+                        <input class="user_input" id="surname" type="text" placeholder="Enter your username">
+                        <p id="message2"></p>
+                    </div>
+                    <div class="input_box_two">
+                        <span class="details">Email Address</span>
+                        <input class="user_input" id="emailAddress" type="text" placeholder="Enter your email">
+                        <p id="message3"></p>
+                    </div>
+                    <div class="input_box_two">
+                        <span class="details">National Identity Card Number</span>
+                        <input class="user_input" id="NID" type="text" placeholder="Enter your National Identity Card Number">
+                        <p id="message4"></p>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Phone Number</span>
+                        <input class="user_input" id="phoneNumber" type="text" placeholder="Enter your phone number">
+                        <p id="message5"></p>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Date of birth</span>
+                        <input class="user_input" id="dateOfBirth" type="date" placeholder="Enter your phone number">
+                        <p id="message6"></p>
+                    </div>
+                    <div class="input_box_two">
+                        <span class="details">Guardian Name</span>
+                        <input class="user_input" id="guardianName" type="text" placeholder="Enter your guardian name">
+                        <p id="message7"></p>
+                    </div>
+                    <div class="input_box_two">
+                        <span class="details">Address</span>
+                        <input class="user_input" id="address" type="text" placeholder="Enter your address">
+                        <p id="message8"></p>
+                    </div>
+                    <span class="details">Select your subjects and grades</span>
+                    <div id="buttonSelection">
+                        <input type="button" id="subjectButton" onclick="AddSubject()" value="+">
+                        <input type="button" id="gradeButton" onclick="RemoveSubject()" value="-">
+                    </div>
+                    <div id="resultSelection"></div>
+                </div>
+                <div class="button_container">
+                    <button onclick="Validation()" id="button">Register</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/Scripts/EnrolmentForm.js"></script>
+    <script>
+        function Logout() {
+            localStorage.clear();
+            CacheStorage.clear;
+            sessionStorage.clear;
+            LogoutController().then((result) => {
+                window.location = result.url;
+            })
+        }
+       
+        function LogoutController() {
+            console.log("logout");
+            return fetch("/User/Logout", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => { return response.json(); })
+                .catch((error) => console.log(error))
+        }
+    </script>
+</body>
+</html>
+

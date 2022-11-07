@@ -1,15 +1,18 @@
-﻿using DAL.Models;
+﻿using Repository.Models;
+using Repository.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DAL.Repository
+namespace Repository.Repository
 {
     public interface IStudentRepository
     {
-        List<Student> GetAllStudent();
-        List<Student> FindDuplicateInfo();
-        bool InsertInfo(Student student);
+        List<StudentInfoViewModel> GetAllStudentInfo();
+        bool FindDuplicateInfo(Student student);
+        int InsertStudentInfo(Student student, int sessionUserId);
+        void InsertStudentResult(List<SubjectResult> result, int studentId);
+        bool CheckEnrolment(int sessionUserId);
     }
 }

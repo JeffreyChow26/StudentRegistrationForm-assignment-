@@ -1,13 +1,16 @@
-﻿using DAL.Models;
-using DAL.Repository;
+﻿using Repository.Models;
+using Repository.Repository;
 using System.Collections.Generic;
 using System.Web.Helpers;
 using System.Diagnostics;
-using BLL.Validation;
+using ServiceLayer.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using Umbraco.Core.Models.Membership;
+using User = Repository.Models.User;
+using System;
 
-namespace BLL.ServiceLayer
+namespace ServiceLayer.ServiceLayer
 {
     public class UserService
     {
@@ -21,23 +24,26 @@ namespace BLL.ServiceLayer
         {
             ValidateInfo validateInfo = new ValidateInfo(_repository);
             List<ValidationResult> errorList = validateInfo.ValidateRegister(user);
-
             if(errorList.Count == 0)
             {
                 string HashPassword = Crypto.HashPassword(user.Password);
                 _repository.InsertUser(user, HashPassword);
             }
-
             return errorList;
-
         }
 
-        public List<ValidationResult> Login(User user)
+        public Tuple<User, List<ValidationResult>> Login(User user)
         {
             ValidateInfo validateInfo = new ValidateInfo(_repository);
-            List<ValidationResult> errorList = validateInfo.ValidateLogin(user);
-            return errorList;
+            var tuple = validateInfo.ValidateLogin(user);
+            return tuple;
         }
 
+        public int GetSessionUserId(User user)
+        {
+            User existingUser = _repository.FindUser(user.EmailAddress);
+            int sessionUserId = existingUser.Id;
+            return sessionUserId;
+        }
     }
 }
