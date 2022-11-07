@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using ServiceLayer.Validation;
 using Repository.ViewModel;
+using System.Transactions;
 
 namespace ServiceLayer.ServiceLayer
 {
@@ -25,8 +26,7 @@ namespace ServiceLayer.ServiceLayer
             List<ValidationResult> errorList = validateStudentInfo.ValidateEnrolmentForm(student);
             if (errorList.Count == 0)
             {
-                int studentId = _repository.InsertStudentInfo(student, sessionUserId);
-                _repository.InsertStudentResult(student.Result, studentId);
+                _repository.InsertStudent(student, sessionUserId);              
                 return errorList;
             }
             return errorList;

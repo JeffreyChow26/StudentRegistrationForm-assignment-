@@ -9,8 +9,8 @@ namespace StudentRegistrationForm.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly StudentService _studentService = new StudentService(new Repository.Repository.StudentRepository());
-        // GET: Student
+        private readonly IStudentService _studentService;
+        public StudentController(IStudentService studentService) => _studentService = studentService;
         public ActionResult EnrolmentForm()
         {
             if (Session["UserId"] == null)

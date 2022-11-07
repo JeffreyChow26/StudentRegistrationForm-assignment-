@@ -10,7 +10,8 @@ namespace StudentRegistrationForm.Controllers
 {
     public class SubjectController : Controller
     {
-        private readonly SubjectService _subjectService = new SubjectService(new Repository.Repository.SubjectRepository());
+        private readonly ISubjectService _subjectService;
+        public SubjectController(ISubjectService subjectService) => _subjectService = subjectService;
         public ActionResult Index()
         {
             return View();

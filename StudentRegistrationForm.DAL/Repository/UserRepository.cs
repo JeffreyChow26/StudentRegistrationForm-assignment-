@@ -54,10 +54,20 @@ namespace Repository.Repository
             {
                 using (SqlCommand sqlCommand = new SqlCommand(SqlDbCommand.InsertUserQuery, sqlUtils.sqlConnection))
                 {
+                    SqlTransaction transaction = connection.BeginTransaction();
                     sqlCommand.Parameters.AddWithValue("@Email", user.EmailAddress);
                     sqlCommand.Parameters.AddWithValue("@Password", passwordHash);
                     sqlCommand.Parameters.AddWithValue("@Role", Role.user);
-                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Transaction = transaction;
+                    try
+                    {
+                        sqlCommand.ExecuteNonQuery();
+                        transaction.Commit();
+                    }
+                    catch(SqlException)
+                    {
+                        transaction.Rollback();
+                    }
                 }
             }
             sqlUtils.CloseConnection();

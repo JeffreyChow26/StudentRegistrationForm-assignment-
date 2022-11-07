@@ -16,7 +16,9 @@ namespace StudentRegistrationForm.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserService _userService = new UserService(new Repository.Repository.UserRepository());
+        private readonly IUserService _userService;
+        public UserController(IUserService userService) => _userService = userService;
+
         public ActionResult Register()
         {
             return View();
@@ -25,11 +27,11 @@ namespace StudentRegistrationForm.Controllers
         {
             if (Session["UserId"] != null)
             {
-                if((int)Session["RoleId"] == (int)Role.admin)
+                if ((int)Session["RoleId"] == (int)Role.admin)
                 {
                     return RedirectToAction("Admin", "Admin");
                 }
-                else if((int)Session["RoleId"] == (int)Role.user)
+                else if ((int)Session["RoleId"] == (int)Role.user)
                 {
                     return RedirectToAction("EnrolmentForm", "Student");
                 }
@@ -40,11 +42,11 @@ namespace StudentRegistrationForm.Controllers
         public JsonResult Register(User user)
         {
             List<ValidationResult> result = _userService.Register(user);
-            return Json(new{data = result,hasErrors = result.Any(),url = Url.Action("Login", "User")}, JsonRequestBehavior.AllowGet);
+            return Json(new { data = result, hasErrors = result.Any(), url = Url.Action("Login", "User") }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult Login(User user)
-        { 
+        {
             var tuple = _userService.Login(user);
             List<ValidationResult> result = tuple.Item2;
             var existinUser = tuple.Item1;
@@ -52,7 +54,7 @@ namespace StudentRegistrationForm.Controllers
             var userId = (int)existinUser.Id;
             var userEmail = existinUser.EmailAddress;
             SetSession(userId, roleId, userEmail);
-            return Json(new{data = result,hasErrors = result.Any(),url = Url.Action("Index", "Home")}, JsonRequestBehavior.AllowGet);
+            return Json(new { data = result, hasErrors = result.Any(), url = Url.Action("Index", "Home") }, JsonRequestBehavior.AllowGet);
         }
         public bool SetSession(int userId, int roleId, string email)
         {

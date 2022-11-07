@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Umbraco.Core;
@@ -28,7 +29,32 @@ namespace ServiceLayer.Validation
                 errorList.Add(new ValidationResult("NID / Emaill Address / Phone Number already exist."));
                 return errorList;
             }
+            else
+            {
+                if(IsStudentInfoEmpty(student) == true)
+                {
+                    errorList.Add(new ValidationResult("Please fill the enrolment form before submitting."));
+                }
+            }
             return errorList;
+        }
+        public bool IsStudentInfoEmpty(Student student)
+        {
+            if (Object.ReferenceEquals(student, null))
+                return true;
+            return student.GetType().GetProperties()
+                .Any(x => IsNullOrEmpty(x.GetValue(student)));
+
+        }
+
+        private static bool IsNullOrEmpty(object value)
+        {
+            if (Object.ReferenceEquals(value, null))
+                return true;
+
+            var type = value.GetType();
+            return type.IsValueType
+                && Object.Equals(value, Activator.CreateInstance(type));
         }
     }
 }

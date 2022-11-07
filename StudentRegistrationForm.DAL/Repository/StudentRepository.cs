@@ -21,7 +21,7 @@ namespace Repository.Repository
                     sqlCommand.Parameters.AddWithValue("@EmailAddress", student.EmailAddress);
                     sqlCommand.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
                     object row = sqlCommand.ExecuteScalar();
-                    if(row == null)
+                    if (row == null)
                     {
                         return false;
                     }
@@ -74,37 +74,32 @@ namespace Repository.Repository
             }
             return studentEnrolmentInfoLst;
         }
-        public int InsertStudentInfo(Student student, int sessionUserId)
+        private int InsertStudentInfo(Student student, int sessionUserId, SqlTransaction transaction, SqlUtils sqlUtils)
         {
             int studentId = 0;
-            SqlUtils sqlUtils = new SqlUtils();
-            using (SqlConnection connection = sqlUtils.sqlConnection)
+            using (SqlCommand sqlCommand = new SqlCommand(SqlDbCommand.InsertStudentInfoQuery, sqlUtils.sqlConnection))
             {
-                using (SqlCommand sqlCommand = new SqlCommand(SqlDbCommand.InsertStudentInfoQuery, sqlUtils.sqlConnection))
+                sqlCommand.Transaction = transaction;
+                sqlCommand.Parameters.AddWithValue("@FirstName", student.Name);
+                sqlCommand.Parameters.AddWithValue("@Surname", student.Surname);
+                sqlCommand.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
+                sqlCommand.Parameters.AddWithValue("@DateOfBirth", student.DateOfBirth);
+                sqlCommand.Parameters.AddWithValue("@GuardianName", student.GuardianName);
+                sqlCommand.Parameters.AddWithValue("@EmailAddress", student.EmailAddress);
+                sqlCommand.Parameters.AddWithValue("@NationalIdentityNumber", student.NationalIdentityNumber);
+                sqlCommand.Parameters.AddWithValue("@Address", student.Address);
+                sqlCommand.Parameters.AddWithValue("@UserId", sessionUserId);
+                sqlCommand.Parameters.AddWithValue("@StatusId", Status.pending);
+                object studentIdObj = sqlCommand.ExecuteScalar();
+                if (studentIdObj != null)
                 {
-                    sqlCommand.Parameters.AddWithValue("@FirstName", student.Name);
-                    sqlCommand.Parameters.AddWithValue("@Surname", student.Surname);
-                    sqlCommand.Parameters.AddWithValue("@PhoneNumber", student.PhoneNumber);
-                    sqlCommand.Parameters.AddWithValue("@DateOfBirth", student.DateOfBirth);
-                    sqlCommand.Parameters.AddWithValue("@GuardianName", student.GuardianName);
-                    sqlCommand.Parameters.AddWithValue("@EmailAddress", student.EmailAddress);
-                    sqlCommand.Parameters.AddWithValue("@NationalIdentityNumber", student.NationalIdentityNumber);
-                    sqlCommand.Parameters.AddWithValue("@Address", student.Address);
-                    sqlCommand.Parameters.AddWithValue("@UserId", sessionUserId);
-                    sqlCommand.Parameters.AddWithValue("@StatusId", Status.pending);
-                    object studentIdObj = sqlCommand.ExecuteScalar();
-                    if(studentIdObj != null)
-                    {
-                        studentId = int.Parse(studentIdObj.ToString());
-                    }
+                    studentId = int.Parse(studentIdObj.ToString());
                 }
             }
-            sqlUtils.CloseConnection();
             return studentId;
         }
-        public void InsertStudentResult(List<SubjectResult> results, int studentId )
+        private void InsertStudentResult(List<SubjectResult> results, int studentId, SqlConnection connection, SqlTransaction connTransaction)
         {
-            SqlUtils sqlUtils = new SqlUtils();
             DataTable studentTable = new DataTable();
             studentTable.Columns.Add(new DataColumn("SubjectId", typeof(Int32)));
             studentTable.Columns.Add(new DataColumn("StudentId", typeof(Int32)));
@@ -119,19 +114,39 @@ namespace Repository.Repository
             }
             if (studentTable.Rows.Count > 0)
             {
-                using (SqlConnection connection = sqlUtils.sqlConnection)
+                SqlTransaction transaction = connTransaction;
+                using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.FireTriggers, transaction))
                 {
-                    SqlTransaction transaction = connection.BeginTransaction();
-                    using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.FireTriggers, transaction))
-                    {
-                        sqlBulkCopy.DestinationTableName = "dbo.SubjectResult";
-                        sqlBulkCopy.ColumnMappings.Add("SubjectId", "SubjectId");
-                        sqlBulkCopy.ColumnMappings.Add("GradeId", "Mark");
-                        sqlBulkCopy.ColumnMappings.Add("StudentId", "StudentId");
-                        sqlBulkCopy.WriteToServer(studentTable);
-                        transaction.Commit();
-                        sqlUtils.CloseConnection();
-                    }
+                    sqlBulkCopy.DestinationTableName = "dbo.SubjectResult";
+                    sqlBulkCopy.ColumnMappings.Add("SubjectId", "SubjectId");
+                    sqlBulkCopy.ColumnMappings.Add("GradeId", "Mark");
+                    sqlBulkCopy.ColumnMappings.Add("StudentId", "StudentId");
+                    sqlBulkCopy.WriteToServer(studentTable);
+                }
+
+            }
+        }
+        public void InsertStudent(Student student, int sessionUserId)
+        {
+            SqlUtils sqlUtils = new SqlUtils();
+            using (SqlConnection connection = sqlUtils.sqlConnection)
+            {
+                SqlTransaction transaction = connection.BeginTransaction();
+                try
+                {
+                    int studentId = InsertStudentInfo(student, sessionUserId, transaction, sqlUtils);
+                    InsertStudentResult(student.Result, studentId, connection, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+                finally
+                {
+                    transaction.Dispose();
+                    sqlUtils.CloseConnection();
                 }
             }
         }
@@ -145,7 +160,7 @@ namespace Repository.Repository
                 {
                     sqlCommand.Parameters.AddWithValue("@UserId", sessionUserId);
                     int row = sqlCommand.ExecuteNonQuery();
-                    if(row > 0)
+                    if (row > 0)
                     {
                         return isEnrolled = true;
                     }

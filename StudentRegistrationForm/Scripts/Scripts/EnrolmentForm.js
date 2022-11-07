@@ -91,54 +91,18 @@ function Validation() {
     var guardianName = document.getElementById('guardianName').value;
     var address = document.getElementById('address').value;
 
-    var emptyField = true;
     var validEmail = false;
     var validPhoneNumber = false;
     var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     var phoneNumberPattern = /^[0-9]+$/;
 
-
-    if (name == "") {
-        document.getElementById("message1").innerHTML = "<b>Please fill the required field.</b>"
-        emptyField = true;
-    }
-    if (name !== "") {
-        document.getElementById("message1").innerHTML = "<b></b>"
-        emptyField = false;
-    }
-    if (surname == "") {
-        document.getElementById("message2").innerHTML = "<b>Please fill the required field.</b>"
-        emptyField = true;
-    }
-    if (surname !== "") {
-        document.getElementById("message2").innerHTML = "<b></b>"
-        emptyField = false;
-    }
-    if (emailAddress == "") {
-        document.getElementById("message3").innerHTML = "<b>Please fill the required field.</b>"
-        emptyField = true;
-    }
-    if (emailAddress !== "") {
-        document.getElementById("message3").innerHTML = "<b></b>"
-        emptyField = false;
-    }
     if (!emailAddress.match(emailPattern) && emailAddress !== "") {
         document.getElementById("message3").innerHTML = "<b>Please enter a valid email.</b>"
         validEmail = false;
-        emptyField = true;
     }
     if (emailAddress.match(emailPattern) && emailAddress !== "") {
         document.getElementById("message3").innerHTML = "<b></b>"
         validEmail = true;
-        emptyField = false;
-    }
-    if (nid == "") {
-        document.getElementById("message4").innerHTML = "<b>Please fill the required field.</b>"
-        emptyField = true;
-    }
-    if (nid !== "") {
-        document.getElementById("message4").innerHTML = "<b></b>"
-        emptyField = false;
     }
     if (phoneNumber == "") {
         document.getElementById("message5").innerHTML = "<b>Please fill the required field.</b>"
@@ -165,24 +129,9 @@ function Validation() {
         document.getElementById("message6").innerHTML = "<b></b>"
         emptyField = false;
     }
-    if (guardianName == "") {
-        document.getElementById("message7").innerHTML = "<b>Please fill the required field.</b>"
-        emptyField = true;
+
     }
-    if (guardianName !== "") {
-        document.getElementById("message7").innerHTML = "<b></b>"
-        emptyField = false;
-    }
-    if (address == "") {
-        document.getElementById("message8").innerHTML = "<b>Please fill the required field.</b>"
-        emptyField = true;
-    }
-    if (address !== "") {
-        document.getElementById("message8").innerHTML = "<b></b>"
-        emptyField = false;
-    }
-    if (validEmail == true && validPhoneNumber == true && emptyField == false) {
-        console.log("enrol");
+    if (validEmail == true && validPhoneNumber == true) {
         SubmitForm();
     }
 }

@@ -10,7 +10,8 @@ namespace StudentRegistrationForm.Controllers
 {
     public class GradeController : Controller
     {
-        private readonly GradeService _gradeService = new GradeService(new Repository.Repository.GradeRepository());
+        private readonly IGradeService _gradeService;
+        public GradeController(IGradeService gradeService) => _gradeService = gradeService;  
         // GET: Grade
         public ActionResult Index()
         {

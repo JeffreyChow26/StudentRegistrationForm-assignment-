@@ -11,8 +11,9 @@ namespace Repository.Repository
     {
         List<StudentInfoViewModel> GetAllStudentInfo();
         bool FindDuplicateInfo(Student student);
-        int InsertStudentInfo(Student student, int sessionUserId);
-        void InsertStudentResult(List<SubjectResult> result, int studentId);
+        //int InsertStudentInfo(Student student, int sessionUserId);
+        //void InsertStudentResult(List<SubjectResult> result, int studentId);
         bool CheckEnrolment(int sessionUserId);
+        void InsertStudent(Student student, int sessionUserId);
     }
 }

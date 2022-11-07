@@ -17,6 +17,8 @@ namespace StudentRegistrationForm
             container.RegisterType<IGradeRepository, GradeRepository>();
             container.RegisterType<ISubjectRepository, SubjectRepository>();
 
+
+            container.RegisterType<IUserService, UserService>();
             container.RegisterType<IGradeService, GradeService>();
             container.RegisterType<ISubjectService, SubjectService>();
             container.RegisterType<IStudentService, StudentService>();

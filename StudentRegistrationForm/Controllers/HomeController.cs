@@ -11,15 +11,9 @@ namespace StudentRegistrationForm.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly StudentService _studentService = new StudentService(new Repository.Repository.StudentRepository());
-
         public ActionResult Index()
         {
-            if (Session["UserId"] == null)
-            {
-                return RedirectToAction("Login","User");
-            }
-            else
+            if(Session["UserId"] != null)
             {
                 if ((int)Session["RoleId"] == (int)Role.admin)
                 {
@@ -30,7 +24,7 @@ namespace StudentRegistrationForm.Controllers
                     return RedirectToAction("EnrolmentForm", "Student");
                 }
             }
-            return View();
+            return RedirectToAction("Login", "User");
         }
 
     }
