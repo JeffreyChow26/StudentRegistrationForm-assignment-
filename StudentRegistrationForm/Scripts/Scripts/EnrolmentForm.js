@@ -129,13 +129,18 @@ function Validation() {
         document.getElementById("message6").innerHTML = "<b></b>"
         emptyField = false;
     }
-
-    }
     if (validEmail == true && validPhoneNumber == true) {
         SubmitForm();
     }
 }
 
+function buildErrorMessage(ul, errorMessage) {
+    var li = document.createElement('Li');
+    li.innerHTML = errorMessage;
+    ul.appendChild(li);
+
+    return ul;
+}
 
 function SubmitForm() {
     var name = document.getElementById('name').value;
@@ -158,11 +163,16 @@ function SubmitForm() {
         Name: name, Surname: surname, EmailAddress: emailAddress, NationalIdentityNumber: nid, PhoneNumber: phoneNumber,
         DateOfBirth: dateOfBirth, GuardianName: guardianName, Address: address, Result: resultArray
     }
-
     sendData(studentObj).then((result) => {
         if (result.hasErrors) {
-            toastr.error('Unable to submit the form.');
-            return false;
+            var ul = document.createElement('UL');
+            const errorPane = document.getElementById("errorPane");
+            errorPane.innerHTML = "";
+
+            for (var i = 0; i < result.data.length; i++) {
+                buildErrorMessage(ul, result.data[i].ErrorMessage);
+            }
+            errorPane.appendChild(ul);
         }
         else {
             toastr.success("The form has been submitted successfully.");s
@@ -171,9 +181,7 @@ function SubmitForm() {
         .catch((error) => {
             toastr.error('Unable to make request!!');
         });
-
 }
-
 function sendData(Obj) {
     return fetch("/Student/EnrolmentForm", {
         method: 'POST',

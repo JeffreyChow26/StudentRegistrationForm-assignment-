@@ -69,6 +69,7 @@ function Validation() {
     }
 
 }
+
 function buildErrorMessage(ul, errorMessage) {
     var li = document.createElement('Li');
     li.innerHTML = errorMessage;

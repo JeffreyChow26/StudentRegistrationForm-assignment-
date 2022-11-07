@@ -31,9 +31,13 @@ namespace ServiceLayer.Validation
             }
             else
             {
-                if(IsStudentInfoEmpty(student) == true)
+                if(IsStudentInfoEmpty(student) == false)
                 {
                     errorList.Add(new ValidationResult("Please fill the enrolment form before submitting."));
+                }
+                if(isSubjectDuplicated(student) == true)
+                {
+                    errorList.Add(new ValidationResult("Cannot choose the same subject multiple time."));
                 }
             }
             return errorList;
@@ -44,9 +48,7 @@ namespace ServiceLayer.Validation
                 return true;
             return student.GetType().GetProperties()
                 .Any(x => IsNullOrEmpty(x.GetValue(student)));
-
         }
-
         private static bool IsNullOrEmpty(object value)
         {
             if (Object.ReferenceEquals(value, null))
@@ -55,6 +57,21 @@ namespace ServiceLayer.Validation
             var type = value.GetType();
             return type.IsValueType
                 && Object.Equals(value, Activator.CreateInstance(type));
+        }
+        private bool isSubjectDuplicated(Student student)
+        {
+            var resultLst = student.Result;
+            foreach(var subjectOne in resultLst)
+            {
+                foreach(var subjectTwo in resultLst)
+                {
+                    if(subjectOne.SubjectId == subjectTwo.SubjectId)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
