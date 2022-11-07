@@ -74,6 +74,51 @@ namespace Repository.Repository
             }
             return studentEnrolmentInfoLst;
         }
+
+        public StudentSummary GetStudentSummary(int sessionUserId)
+        {
+            SqlUtils sqlUtils = new SqlUtils();
+            StudentSummary studentSummary = new StudentSummary();
+            using (SqlCommand sqlCommand = new SqlCommand(@";WITH CTE
+                                                        AS
+                                                        (
+                                                            SELECT stu.StudentId,stu.Firstname as FirstName,stu.Surname, stu.Address, stu.PhoneNumber, stu.EmailAddress,stu.DateOfBirth, stu.GuardianName, stu.NationalIdentityNumber, stu.UserId, sub.SubjectName as SubjectName, srt.Mark, stu.StatusId
+                                                            FROM Student as stu inner JOIN (SubjectResult as srt Inner JOIN Subject as sub on srt.SubjectId = sub.SubjectId) on stu.StudentId = srt.StudentId where UserId = @UserId
+                                                        )          
+                                                        SELECT DISTINCT(i1.StudentId),i1.FirstName, i1.Surname, i1.Address, i1.PhoneNumber, i1.EmailAddress ,i1.DateOfBirth, i1.GuardianName, i1.NationalIdentityNumber, i1.UserId, STUFF(
+                                                                    (SELECT
+                                                                        ', ' + SubjectName
+                                                                        FROM CTE i2 WHERE i1.StudentId = i2.StudentId
+                                                                        FOR XML PATH(''))
+                                                                    ,1,2, ''
+                                                                ) as SubjectsTaken, SUM(i1.Mark) as TotalMark, i1.StatusId     
+    
+                                                        FROM CTE i1
+                                                        GROUP BY i1.StudentId, i1.FirstName, i1.Surname, i1.Address,  i1.EmailAddress ,i1.PhoneNumber, i1.DateOfBirth, i1.GuardianName, i1.NationalIdentityNumber, i1.UserId, i1.StatusId
+                                                        ORDER BY i1.StatusId DESC, TotalMark DESC
+                                                    ", sqlUtils.sqlConnection))
+            {
+                sqlCommand.Parameters.AddWithValue("@UserId", sessionUserId);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    studentSummary.StudentId = reader.GetInt32(0);
+                    studentSummary.FirstName = reader.GetString(1);
+                    studentSummary.Surname = reader.GetString(2);
+                    studentSummary.Address = reader.GetString(3);
+                    studentSummary.PhoneNumber = reader.GetString(4);
+                    studentSummary.EmailAddress = reader.GetString(5);
+                    studentSummary.DateOfBirth = reader.GetDateTime(6);
+                    studentSummary.GuardianName = reader.GetString(7);
+                    studentSummary.NationalIdentityNumber = reader.GetString(8);
+                    studentSummary.UserId = reader.GetInt32(9);
+                    studentSummary.SubjectTaken = reader.GetString(10);
+                    studentSummary.TotalMark = reader.GetInt32(11);
+                    studentSummary.StatusId = (Status)reader.GetInt32(12);
+                }
+            }
+            return studentSummary;
+        }
         private int InsertStudentInfo(Student student, int sessionUserId, SqlTransaction transaction, SqlUtils sqlUtils)
         {
             int studentId = 0;
@@ -159,10 +204,13 @@ namespace Repository.Repository
                 using (SqlCommand sqlCommand = new SqlCommand(SqlDbCommand.FindEnrolledUserQuery, sqlUtils.sqlConnection))
                 {
                     sqlCommand.Parameters.AddWithValue("@UserId", sessionUserId);
-                    int row = sqlCommand.ExecuteNonQuery();
-                    if (row > 0)
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+                    while (reader.Read())
                     {
-                        return isEnrolled = true;
+                        if(reader.HasRows)
+                        {
+                            isEnrolled = true;
+                        }
                     }
                 }
             }

@@ -28,7 +28,7 @@ namespace Repository.CommonUtils
         public static string InsertStudentInfoQuery = "insert into [Student] (FirstName,Surname,PhoneNumber,DateOfBirth,GuardianName,EmailAddress,NationalIdentityNumber,Address,UserId,StatusId)" +
                                                      " values(@FirstName,@Surname,@PhoneNumber,@DateOfBirth,@GuardianName,@EmailAddress,@NationalIdentityNumber, @Address, @UserId, @StatusId); SELECT SCOPE_IDENTITY();";
 
-        public static string FindEnrolledUserQuery = "select UserId [Student] where Email = @UserId";
+        public static string FindEnrolledUserQuery = "select top 1 UserId from [Student] where UserId = @UserId";
 
         public static string GetAllStudentInfoQuery = "; WITH CTE " +
                                                         "AS " +

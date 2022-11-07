@@ -7,8 +7,8 @@ namespace ServiceLayer.ServiceLayer
 {
     public interface IStudentService
     {
-        bool CheckEnrolment(int sessionUerId);
         List<StudentInfoViewModel> GetAllStudentInfo();
         List<ValidationResult> InsertStudentInfo(Student student, int sessionUserId);
+        StudentSummary SendStudentSummary(int userId);
     }
 }

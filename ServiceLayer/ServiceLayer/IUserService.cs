@@ -10,5 +10,6 @@ namespace ServiceLayer.ServiceLayer
         int GetSessionUserId(User user);
         Tuple<User, List<ValidationResult>> Login(User user);
         List<ValidationResult> Register(User user);
+        bool isEnrolled(int userId);
     }
 }

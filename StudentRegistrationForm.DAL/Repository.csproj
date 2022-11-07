@@ -67,6 +67,7 @@
     <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="ViewModel\AllStudentInformation.cs" />
+    <Compile Include="ViewModel\StudentSummary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

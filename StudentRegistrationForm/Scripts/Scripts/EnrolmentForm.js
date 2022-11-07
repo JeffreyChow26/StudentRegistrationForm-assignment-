@@ -82,16 +82,17 @@ function DisplayGrade() {
 }
 
 function Validation() {
-    var name = document.getElementById('name').value;
-    var surname = document.getElementById('surname').value;
     var emailAddress = document.getElementById('emailAddress').value;
     var nid = document.getElementById('NID').value;
     var phoneNumber = document.getElementById('phoneNumber').value;
     var dateOfBirth = document.getElementById('dateOfBirth').value;
-    var guardianName = document.getElementById('guardianName').value;
-    var address = document.getElementById('address').value;
+    var subject1 = document.getElementById("subjects1").value;
+    var subject2 = document.getElementById("subjects2").value;
+    var subject3 = document.getElementById("subjects3").value;
 
     var validEmail = false;
+    var validNID = false;
+    var isDuplicate = false;
     var validPhoneNumber = false;
     var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     var phoneNumberPattern = /^[0-9]+$/;
@@ -103,6 +104,14 @@ function Validation() {
     if (emailAddress.match(emailPattern) && emailAddress !== "") {
         document.getElementById("message3").innerHTML = "<b></b>"
         validEmail = true;
+    }
+    if (nid.length > 14) {
+        validNID = false;
+        document.getElementById("message4").innerHTML = "<b>Please enter a valid Identity number.</b>"
+    }
+    if (nid.length < 14) {
+        validNID = true;
+        document.getElementById("message4").innerHTML = "<b</b>"
     }
     if (phoneNumber == "") {
         document.getElementById("message5").innerHTML = "<b>Please fill the required field.</b>"
@@ -129,7 +138,15 @@ function Validation() {
         document.getElementById("message6").innerHTML = "<b></b>"
         emptyField = false;
     }
-    if (validEmail == true && validPhoneNumber == true) {
+    if (subject1 == subject2 || subject1 == subject3 || subject2 == subject1 || subject2 == subject3 || subject3 == subject1 || subject3 == subject2) {
+        isDuplicate = true;
+        document.getElementById("message9").innerHTML = "<b>Cannot choose same subject.</b>"
+    }
+    else { 
+        isDuplicate == false;
+        document.getElementById("message9").innerHTML = "<b></b>"
+    }
+    if (validEmail == true && validPhoneNumber == true && validNID == true && isDuplicate == false) {
         SubmitForm();
     }
 }

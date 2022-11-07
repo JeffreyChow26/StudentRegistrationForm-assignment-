@@ -37,9 +37,10 @@ namespace ServiceLayer.ServiceLayer
             return studentEnrolmentInfoLst;
         }
 
-        public bool CheckEnrolment(int sessionUerId)
+        public StudentSummary SendStudentSummary(int sessionUserId)
         {
-            return _repository.CheckEnrolment(sessionUerId);
+            StudentSummary studentSummary = _repository.GetStudentSummary(sessionUserId);
+            return studentSummary;
         }
     }
 }

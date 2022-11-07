@@ -15,9 +15,11 @@ namespace ServiceLayer.ServiceLayer
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
-        public UserService(IUserRepository iUserRepository)
+        private readonly IStudentRepository _studentRepository;
+        public UserService(IUserRepository iUserRepository, IStudentRepository studentRepository)
         {
             this._repository = iUserRepository;
+            _studentRepository = studentRepository;
         }
 
         public List<ValidationResult> Register(User user)
@@ -44,6 +46,11 @@ namespace ServiceLayer.ServiceLayer
             User existingUser = _repository.FindUser(user.EmailAddress);
             int sessionUserId = existingUser.Id;
             return sessionUserId;
+        }
+
+        public bool isEnrolled(int userId)
+        {
+            return _studentRepository.CheckEnrolment(userId);
         }
     }
 }

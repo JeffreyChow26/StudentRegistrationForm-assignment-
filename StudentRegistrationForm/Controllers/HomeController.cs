@@ -1,5 +1,6 @@
 ﻿using Repository.Models;
 using ServiceLayer.ServiceLayer;
+using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,15 +14,19 @@ namespace StudentRegistrationForm.Controllers
     {
         public ActionResult Index()
         {
-            if(Session["UserId"] != null)
+            if (Session["UserId"] != null)
             {
                 if ((int)Session["RoleId"] == (int)Role.admin)
                 {
                     return RedirectToAction("Admin", "Admin");
                 }
-                else if ((int)Session["RoleId"] == (int)Role.user)
+                else if ((int)Session["RoleId"] == (int)Role.user && (bool)Session["isEnroled"] == null)
                 {
                     return RedirectToAction("EnrolmentForm", "Student");
+                }
+                else if ((int)Session["RoleId"] == (int)Role.user && (bool)Session["isEnroled"] == true)
+                {
+                    return RedirectToAction("StudentSummary", "StudentSummary");
                 }
             }
             return RedirectToAction("Login", "User");

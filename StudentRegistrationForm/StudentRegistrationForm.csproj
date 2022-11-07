@@ -159,6 +159,7 @@
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentSummaryController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,6 +176,7 @@
     <Content Include="Content\css\AdminSide.css" />
     <Content Include="Content\css\Login.css" />
     <Content Include="Content\css\Register.css" />
+    <Content Include="Content\css\StudentSummary.css" />
     <Content Include="Content\register.jpg" />
     <Content Include="Content\css\EnrolmentForm.css" />
     <Content Include="favicon.ico" />
@@ -198,6 +200,7 @@
     <Content Include="Scripts\Scripts\LoginIndex.js" />
     <Content Include="Scripts\Scripts\RegisterIndex.js" />
     <Content Include="Scripts\Scripts\EnrolmentForm.js" />
+    <Content Include="Scripts\Scripts\StudentSummary.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -216,6 +219,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Student\EnrolmentForm.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\StudentSummary\StudentSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -61,6 +61,7 @@ namespace StudentRegistrationForm.Controllers
             this.Session["UserId"] = userId;
             this.Session["RoleId"] = roleId;
             this.Session["Email"] = email;
+            this.Session["isEnroled"] = _userService.isEnrolled(userId);
             return true;
         }
         public JsonResult Logout()

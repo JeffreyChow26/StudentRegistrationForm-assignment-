@@ -1,0 +1,85 @@
+﻿#header {
+    background-color: transparent;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 5px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+    #header * {
+        display: inline;
+    }
+
+header li {
+    margin: 20px;
+}
+
+#header li #button {
+    color: midnightblue;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    height: 30px;
+    font-size: 20px;
+}
+
+#header li #button:hover {
+    color: blue
+}
+
+#studentInfoTable {
+    margin-top: 80px;
+    margin-left: 2px;
+}
+
+#studentInfoTable tr th{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#studentInfoTable, th, td {
+    border: 2px solid grey;
+    border-collapse: collapse;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+#studentInfoTable, th:nth-child(1) {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#studentInfoTable, th:nth-child(4) {
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+#studentInfoTable, th:nth-child(11) {
+padding-right: 30px;
+padding-left: 30px;
+}
+
+#studentInfoTable, th:nth-child(12) {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#studentInfoTable tr th {
+    background-color: midnightblue;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+#studentInfoTable tr td {
+    font-size: 16px;
+    font-family: sans-serif;
+}

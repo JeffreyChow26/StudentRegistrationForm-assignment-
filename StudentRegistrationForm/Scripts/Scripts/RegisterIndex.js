@@ -74,7 +74,6 @@ function buildErrorMessage(ul, errorMessage) {
     var li = document.createElement('Li');
     li.innerHTML = errorMessage;
     ul.appendChild(li);
-
     return ul;
 }
 
@@ -83,30 +82,24 @@ function Register() {
         var passwordHash = document.getElementById('password1').value;
 
         var userObj = { EmailAddress: emailAddress, Password: passwordHash };
-    
-
         sendData(userObj).then((result) => {
             if (result.hasErrors) {
                 var ul = document.createElement('UL');
                 const errorPane = document.getElementById("errorPane");
                 errorPane.innerHTML = "";
-
                 for (var i = 0; i < result.data.length; i++) {
                     buildErrorMessage(ul, result.data[i].ErrorMessage);
                 }
-
                 errorPane.appendChild(ul);
             }
             else {
                 window.location = result.url;
             }
-
         })
-            .catch((error) => {
-                toastr.error('Unable to make request!!');
-            });
+        .catch((error) => {
+            toastr.error('Unable to make request!!');
+        });
 }
-
 function sendData(dataObj) {
     return fetch("/User/Register", {
         method: 'POST',

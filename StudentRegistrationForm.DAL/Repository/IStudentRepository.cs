@@ -10,9 +10,8 @@ namespace Repository.Repository
     public interface IStudentRepository
     {
         List<StudentInfoViewModel> GetAllStudentInfo();
+        StudentSummary GetStudentSummary(int sessionUserId);
         bool FindDuplicateInfo(Student student);
-        //int InsertStudentInfo(Student student, int sessionUserId);
-        //void InsertStudentResult(List<SubjectResult> result, int studentId);
         bool CheckEnrolment(int sessionUserId);
         void InsertStudent(Student student, int sessionUserId);
     }
