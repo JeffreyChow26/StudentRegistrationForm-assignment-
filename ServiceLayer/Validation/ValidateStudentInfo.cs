@@ -1,15 +1,12 @@
 ﻿using Repository.Models;
 using Repository.Repository;
 using StackExchange.Profiling.Internal;
-using Superpower.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Umbraco.Core;
+using System.Text.RegularExpressions;
+using Umbraco.Core.Models.Membership;
 
 namespace ServiceLayer.Validation
 {
@@ -39,6 +36,11 @@ namespace ServiceLayer.Validation
                 {
                     errorList.Add(new ValidationResult("Cannot choose the same subject multiple time."));
                 }
+                if(isPhoneNumberValid(student) == false)
+                {
+                    errorList.Add(new ValidationResult("Please enter a valid phone number."));
+                }
+                CheckEmailValid(student, errorList);
             }
             return errorList;
         }
@@ -61,17 +63,32 @@ namespace ServiceLayer.Validation
         private bool isSubjectDuplicated(Student student)
         {
             var resultLst = student.Result;
-            foreach(var subjectOne in resultLst)
+            var duplicatesSubject = resultLst.GroupBy(s => s.SubjectId).Where(g => g.Count() > 1).Select(g => g.Key);
+            if(duplicatesSubject.Count() > 0)
             {
-                foreach(var subjectTwo in resultLst)
-                {
-                    if(subjectOne.SubjectId == subjectTwo.SubjectId)
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
             return false;
+        }
+        public void CheckEmailValid(Student student, List<ValidationResult> errorList)
+        {
+            string pattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+            if (!Regex.IsMatch(student.EmailAddress, pattern, RegexOptions.IgnoreCase) && !student.EmailAddress.IsNullOrWhiteSpace())
+            {
+                errorList.Add(new ValidationResult("Please enter a valid email address."));
+            }
+            else if (student.EmailAddress.IsNullOrWhiteSpace())
+            {
+                errorList.Add(new ValidationResult("Email Address is required"));
+            }
+        }
+        public bool isPhoneNumberValid(Student student)
+        {
+            if(student.PhoneNumber.Length > 7 && student.PhoneNumber.Trim().Length > 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
