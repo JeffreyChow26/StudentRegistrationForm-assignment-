@@ -162,6 +162,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLayer\GradeService.cs" />
+    <Compile Include="ServiceLayer\IGradeService.cs" />
+    <Compile Include="ServiceLayer\IStudentService.cs" />
+    <Compile Include="ServiceLayer\ISubjectService.cs" />
+    <Compile Include="ServiceLayer\IUserService.cs" />
     <Compile Include="ServiceLayer\StudentService.cs" />
     <Compile Include="ServiceLayer\SubjectService.cs" />
     <Compile Include="ServiceLayer\UserService.cs" />

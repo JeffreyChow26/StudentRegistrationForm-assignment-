@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ServiceLayer.ServiceLayer
 {
-    public class SubjectService
+    public class SubjectService : ISubjectService
     {
         private readonly ISubjectRepository _repository;
         public SubjectService(ISubjectRepository iSubjectRepository)

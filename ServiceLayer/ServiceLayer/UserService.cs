@@ -12,7 +12,7 @@ using System;
 
 namespace ServiceLayer.ServiceLayer
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
         public UserService(IUserRepository iUserRepository)
@@ -24,7 +24,7 @@ namespace ServiceLayer.ServiceLayer
         {
             ValidateInfo validateInfo = new ValidateInfo(_repository);
             List<ValidationResult> errorList = validateInfo.ValidateRegister(user);
-            if(errorList.Count == 0)
+            if (errorList.Count == 0)
             {
                 string HashPassword = Crypto.HashPassword(user.Password);
                 _repository.InsertUser(user, HashPassword);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.ServiceLayer
 {
-    public class GradeService
+    public class GradeService:IGradeService
     {
         private readonly IGradeRepository _repository;
         public GradeService(IGradeRepository iGradeRepository)

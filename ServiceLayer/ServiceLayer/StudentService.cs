@@ -12,7 +12,7 @@ using Repository.ViewModel;
 
 namespace ServiceLayer.ServiceLayer
 {
-    public class StudentService
+    public class StudentService : IStudentService
     {
         private readonly IStudentRepository _repository;
         public StudentService(IStudentRepository iStudentRepository)
@@ -23,13 +23,13 @@ namespace ServiceLayer.ServiceLayer
         {
             ValidateStudentInfo validateStudentInfo = new ValidateStudentInfo(_repository);
             List<ValidationResult> errorList = validateStudentInfo.ValidateEnrolmentForm(student);
-            if(errorList.Count == 0)
+            if (errorList.Count == 0)
             {
                 int studentId = _repository.InsertStudentInfo(student, sessionUserId);
-                _repository.InsertStudentResult(student.Result,studentId);
+                _repository.InsertStudentResult(student.Result, studentId);
                 return errorList;
             }
-            return errorList; 
+            return errorList;
         }
         public List<StudentInfoViewModel> GetAllStudentInfo()
         {
