@@ -38,8 +38,6 @@ namespace ServiceLayer.Validation
             }
             return errorList;
         }
-
-
         public Tuple <User, List<ValidationResult>> ValidateLogin(User user)
         {
             List<ValidationResult> errorList = new List<ValidationResult>();
@@ -57,7 +55,6 @@ namespace ServiceLayer.Validation
             }
             return tuple;
         }
-
         public void CheckEmailValid(User user, List<ValidationResult> errorList)
         {
             string pattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
@@ -70,7 +67,6 @@ namespace ServiceLayer.Validation
                 errorList.Add(new ValidationResult("Email Address is required"));
             }
         }
-
         public void CheckPassword(User user, List<ValidationResult> errorList)
         {
             if(user.Password.IsNullOrWhiteSpace())

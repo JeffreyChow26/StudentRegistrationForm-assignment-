@@ -36,7 +36,6 @@ namespace ServiceLayer.ServiceLayer
             List<StudentInfoViewModel> studentEnrolmentInfoLst = _repository.GetAllStudentInfo();
             return studentEnrolmentInfoLst;
         }
-
         public StudentSummary SendStudentSummary(int sessionUserId)
         {
             StudentSummary studentSummary = _repository.GetStudentSummary(sessionUserId);

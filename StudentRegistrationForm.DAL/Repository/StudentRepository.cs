@@ -74,7 +74,6 @@ namespace Repository.Repository
             }
             return studentEnrolmentInfoLst;
         }
-
         public StudentSummary GetStudentSummary(int sessionUserId)
         {
             SqlUtils sqlUtils = new SqlUtils();

@@ -15,7 +15,6 @@ namespace ServiceLayer.ServiceLayer
         {
             this._repository = iGradeRepository;
         }
-
         public List<Grade> DisplayGrades()
         {
             List<Grade> GradesLst = _repository.GetAllGrade();

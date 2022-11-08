@@ -21,7 +21,6 @@ namespace ServiceLayer.ServiceLayer
             this._repository = iUserRepository;
             _studentRepository = studentRepository;
         }
-
         public List<ValidationResult> Register(User user)
         {
             ValidateInfo validateInfo = new ValidateInfo(_repository);
@@ -33,21 +32,18 @@ namespace ServiceLayer.ServiceLayer
             }
             return errorList;
         }
-
         public Tuple<User, List<ValidationResult>> Login(User user)
         {
             ValidateInfo validateInfo = new ValidateInfo(_repository);
             var tuple = validateInfo.ValidateLogin(user);
             return tuple;
         }
-
         public int GetSessionUserId(User user)
         {
             User existingUser = _repository.FindUser(user.EmailAddress);
             int sessionUserId = existingUser.Id;
             return sessionUserId;
         }
-
         public bool isEnrolled(int userId)
         {
             return _studentRepository.CheckEnrolment(userId);

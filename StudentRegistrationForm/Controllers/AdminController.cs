@@ -1,7 +1,9 @@
 ﻿using Repository.Models;
 using Repository.ViewModel;
 using ServiceLayer.ServiceLayer;
+using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 
 namespace StudentRegistrationForm.Controllers
@@ -13,6 +15,7 @@ namespace StudentRegistrationForm.Controllers
 
         public ActionResult Admin()
         {
+            ClearCache();
             if (Session["UserId"] == null || (int)Session["RoleId"] != (int)Role.admin)
             {
                 return RedirectToAction("EnrolmentForm", "Student");
@@ -24,6 +27,16 @@ namespace StudentRegistrationForm.Controllers
         {
             List<StudentInfoViewModel> studentEnrolmentInfoLst = _studentService.GetAllStudentInfo();
             return Json(studentEnrolmentInfoLst);
+        }
+        public void ClearCache()
+        {
+            HttpContext.Response.Cache.SetAllowResponseInBrowserHistory(false);
+            HttpContext.Response.AddHeader("Cache-Control", "no-cache, no-store");
+            HttpContext.Response.AddHeader("Pragma", "no-cache");
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Response.Cache.SetNoStore();
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetValidUntilExpires(true);
         }
     }
 }

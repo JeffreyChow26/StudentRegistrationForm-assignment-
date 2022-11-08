@@ -20,7 +20,7 @@ namespace StudentRegistrationForm.Controllers
                 {
                     return RedirectToAction("Admin", "Admin");
                 }
-                else if ((int)Session["RoleId"] == (int)Role.user && (bool)Session["isEnroled"] == null)
+                else if ((int)Session["RoleId"] == (int)Role.user && Session["isEnroled"] == null)
                 {
                     return RedirectToAction("EnrolmentForm", "Student");
                 }
@@ -31,6 +31,5 @@ namespace StudentRegistrationForm.Controllers
             }
             return RedirectToAction("Login", "User");
         }
-
     }
 }

@@ -192,7 +192,8 @@ function SubmitForm() {
             errorPane.appendChild(ul);
         }
         else {
-            toastr.success("The form has been submitted successfully.");s
+            toastr.success("The form has been submitted successfully.");
+            window.location = result.url;
         }
     })
         .catch((error) => {

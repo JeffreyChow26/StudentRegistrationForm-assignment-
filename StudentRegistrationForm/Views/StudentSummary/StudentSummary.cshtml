@@ -1,8 +1,4 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +15,7 @@
             <nav>
                 <ul>
                     <li>
-                        <input id="button" type="button" onClick="Logout()" value="Logout"></a>
+                        <input id="button" type="button" onClick="Logout()" value="Logout">
                     </li>
                 </ul>
             </nav>
@@ -45,8 +41,6 @@
     </table>
     <script type="text/javascript" src="~/Scripts/Scripts/StudentSummary.js"></script>
     <script>
-
-
         function Logout() {
             localStorage.clear();
             CacheStorage.clear;

@@ -25,6 +25,7 @@ namespace StudentRegistrationForm.Controllers
         }
         public ActionResult Login()
         {
+            ClearCache();
             if (Session["UserId"] != null)
             {
                 if ((int)Session["RoleId"] == (int)Role.admin)
@@ -69,6 +70,16 @@ namespace StudentRegistrationForm.Controllers
             Session.Abandon();
             Session.Clear();
             return Json(new { url = Url.Action("Login", "User") }, JsonRequestBehavior.AllowGet);
+        }
+        public void ClearCache()
+        {
+            HttpContext.Response.Cache.SetAllowResponseInBrowserHistory(false);
+            HttpContext.Response.AddHeader("Cache-Control", "no-cache, no-store");
+            HttpContext.Response.AddHeader("Pragma", "no-cache");
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Response.Cache.SetNoStore();
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetValidUntilExpires(true);
         }
     }
 }
