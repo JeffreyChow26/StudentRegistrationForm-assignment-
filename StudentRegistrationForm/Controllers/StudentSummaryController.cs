@@ -21,7 +21,15 @@ namespace StudentRegistrationForm.Controllers
             }
             return View();
         } 
-  
+        public ActionResult StudentSummaryDojo()
+        {
+            ClearCache();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            return View();
+        }
         [HttpPost]
         public JsonResult GetStudentSummary()
         {
