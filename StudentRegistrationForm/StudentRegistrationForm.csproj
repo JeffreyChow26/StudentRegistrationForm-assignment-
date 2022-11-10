@@ -197,6 +197,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Scripts\AdminSide.js" />
+    <Content Include="Scripts\Scripts\LoginDojo.js" />
     <Content Include="Scripts\Scripts\LoginIndex.js" />
     <Content Include="Scripts\Scripts\RegisterIndex.js" />
     <Content Include="Scripts\Scripts\EnrolmentForm.js" />
@@ -216,6 +217,9 @@
     <Content Include="Views\Student\EnrolmentForm.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\StudentSummary\StudentSummary.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\User\LoginDojo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

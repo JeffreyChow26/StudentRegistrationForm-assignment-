@@ -8,8 +8,17 @@
     @*https://codeseven.github.io/toastr/*@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script type="text/javascript" src="~/Scripts/Scripts/LoginIndex.js"></script>
-
+    <script>
+        var dojoConfig = {
+            async: true,
+            packages: [{
+                name: "Scripts",
+                location: "@Url.Content("~/Scripts/")"
+            }]
+        };
+        require(["dojo/parser", "dijit/form/ValidationTextBox"]);
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
 </head>
 <body>
     <div class="split_screen">
@@ -20,10 +29,10 @@
             </section>
         </div>
         <dic class="right">
-            <form>
+            <form id="LoginFormDojo">
                 <section class="copy">
                     <img src="~/Content/CeridianLogo.png" width="350" height="280" alt="Ceridian logo">
-                    <p id="loginTitle">Log In<p>
+                    <p id="loginTitle">Log In Dojo<p>
                         <div class="login_container">
                             <p>Not registered yet?</p>
                             <a href="https://localhost:44311/User/Register"><strong>Sign Up</strong></a>
@@ -31,12 +40,12 @@
                 </section>
                 <div class="input_container_email">
                     <label id="textTitle" for="fname">Email Address</label>
-                    <input class="text" id="emailAddress" name="fname" type="email">
+                    <input class="text" id="emailAddress" name="EmailAddress" type="email">
                 </div>
                 <p id="message1"></p>
                 <div class="input_container_password">
                     <label id="textTitle" for="email">Password</label>
-                    <input class="text" id="password" name="password" type="password">
+                    <input class="text" id="password" name="Password" type="password">
                 </div>
                 <p id="message2"></p>
 
@@ -48,6 +57,11 @@
             </form>
         </dic>
     </div>
+    <script>
+        require(['Scripts/Scripts/LoginDojo'], function () { })
+    </script>
 </body>
 </html>
+
+
 

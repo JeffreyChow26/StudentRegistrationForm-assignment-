@@ -196,9 +196,9 @@ function SubmitForm() {
             window.location = result.url;
         }
     })
-        .catch((error) => {
-            toastr.error('Unable to make request!!');
-        });
+    .catch((error) => {
+        toastr.error('Unable to make request!!');
+    });
 }
 function sendData(Obj) {
     return fetch("/Student/EnrolmentForm", {

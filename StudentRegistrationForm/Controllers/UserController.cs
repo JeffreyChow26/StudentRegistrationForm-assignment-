@@ -39,6 +39,22 @@ namespace StudentRegistrationForm.Controllers
             }
             return View();
         }
+        public ActionResult LoginDojo()
+        {
+            ClearCache();
+            if (Session["UserId"] != null)
+            {
+                if ((int)Session["RoleId"] == (int)Role.admin)
+                {
+                    return RedirectToAction("Admin", "Admin");
+                }
+                else if ((int)Session["RoleId"] == (int)Role.user)
+                {
+                    return RedirectToAction("EnrolmentForm", "Student");
+                }
+            }
+            return View();
+        }
         [HttpPost]
         public JsonResult Register(User user)
         {
@@ -50,12 +66,16 @@ namespace StudentRegistrationForm.Controllers
         {
             var tuple = _userService.Login(user);
             List<ValidationResult> result = tuple.Item2;
+            if(result.Count == 0)
+            {
             var existinUser = tuple.Item1;
             var roleId = (int)existinUser.Roles;
             var userId = (int)existinUser.Id;
             var userEmail = existinUser.EmailAddress;
             SetSession(userId, roleId, userEmail);
             return Json(new { data = result, hasErrors = result.Any(), url = Url.Action("Index", "Home") }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { data = result, hasErrors = result.Any(), url = Url.Action("Login", "User") }, JsonRequestBehavior.AllowGet);
         }
         public bool SetSession(int userId, int roleId, string email)
         {
